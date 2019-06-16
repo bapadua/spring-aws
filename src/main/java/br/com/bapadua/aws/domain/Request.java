@@ -1,5 +1,6 @@
 package br.com.bapadua.aws.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "TB_REQUEST")
-public class Request {
+public class Request implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -47,8 +50,8 @@ public class Request {
 	private RequestState state;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@JoinColumn(name = "owner_id", nullable = false)
+	private User owner;
 	
 	@OneToMany(mappedBy = "request")
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
