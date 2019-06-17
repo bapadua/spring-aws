@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.bapadua.aws.domain.User;
-import br.com.bapadua.aws.domain.UserLogin;
+import br.com.bapadua.aws.domain.dto.UserLoginDTO;
 import br.com.bapadua.aws.repository.UserRepository;
 import br.com.bapadua.aws.service.util.HashUtil;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -37,7 +37,7 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public User login(UserLogin login) throws IllegalAccessError {
+	public User login(UserLoginDTO login) throws IllegalAccessError {
 		String secureHash = HashUtil.getSecureHash(login.getPassword());
 		login.setPassword(secureHash);
 		
