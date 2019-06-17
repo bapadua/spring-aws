@@ -47,6 +47,6 @@ public class RequestStageService {
 	
 	public List<RequestStage> listAllByRequest(Request request) {
 		Long id = request.getId();
-		return stageRepository.listByRequestId(id);
+		return stageRepository.findByRequestStagesId(id);
 	}
 }

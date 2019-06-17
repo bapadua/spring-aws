@@ -58,8 +58,7 @@ public class UserResource {
 
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody UserLoginDTO login) {
-		User user = userService.login(login);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.login(login));
 	}
 
 }

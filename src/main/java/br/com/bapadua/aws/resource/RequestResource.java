@@ -50,7 +50,7 @@ public class RequestResource {
 
 	@GetMapping("/{id}/stages")
 	public ResponseEntity<List<RequestStage>> listByRequestId(@PathVariable(name = "id") Long id) {
-		return ResponseEntity.accepted().body(stageRepository.listByRequestId(id));
+		return ResponseEntity.accepted().body(stageRepository.findByRequestStagesId(id));
 	}
 
 }
