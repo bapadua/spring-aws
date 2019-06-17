@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.bapadua.aws.domain.Request;
-import br.com.bapadua.aws.domain.User;
 import br.com.bapadua.aws.domain.enums.RequestState;
 import br.com.bapadua.aws.repository.RequestRepository;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -37,7 +36,7 @@ public class RequestService {
 		return requestRepository.findAll();
 	}
 	
-	public List<Request> findByOwner(User owner) {
-		 return requestRepository.findAllByOwnerId(owner.getId());
+	public List<Request> findByOwner(Long id) {
+		 return requestRepository.findAllByOwnerId(id);
 	}
 }
