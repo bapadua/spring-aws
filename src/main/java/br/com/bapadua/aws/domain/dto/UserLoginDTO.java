@@ -1,4 +1,4 @@
-package br.com.bapadua.aws.domain;
+package br.com.bapadua.aws.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLogin {
+public class UserLoginDTO {
 	private String email;
 	private String password;
 }
