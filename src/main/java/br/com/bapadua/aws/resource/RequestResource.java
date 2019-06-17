@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bapadua.aws.domain.Request;
+import br.com.bapadua.aws.domain.RequestStage;
+import br.com.bapadua.aws.repository.RequestStageRepository;
 import br.com.bapadua.aws.service.RequestService;
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -22,6 +24,9 @@ public class RequestResource {
 
 	@Autowired
 	private RequestService requestService;
+	
+	@Autowired
+	private RequestStageRepository stageRepository;
 
 	@PostMapping
 	public ResponseEntity<Request> save(@RequestBody Request request) {
@@ -41,6 +46,11 @@ public class RequestResource {
 	@GetMapping
 	public ResponseEntity<List<Request>> getAll() {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.findAll());
+	}
+
+	@GetMapping("/{id}/stages")
+	public ResponseEntity<List<RequestStage>> listByRequestId(@PathVariable(name = "id") Long id) {
+		return ResponseEntity.accepted().body(stageRepository.listByRequestId(id));
 	}
 
 }

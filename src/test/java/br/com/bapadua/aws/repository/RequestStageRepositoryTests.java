@@ -94,7 +94,7 @@ public class RequestStageRepositoryTests {
 	
 	@Test
 	public void dListByRequest() {
-		List<RequestStage> list = repository.findAllByRequestId(request.getId());
+		List<RequestStage> list = repository.listByRequestId(request.getId());
 		assertTrue(list.size() == 1);
 	}
 }

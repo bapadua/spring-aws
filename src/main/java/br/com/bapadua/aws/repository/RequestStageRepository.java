@@ -10,6 +10,6 @@ import br.com.bapadua.aws.domain.RequestStage;
 @Repository
 public interface RequestStageRepository extends JpaRepository<RequestStage, Long> {
 	
-	public List<RequestStage> findAllByRequestId(Long id);
+	public List<RequestStage> listByRequestId(Long id);
 	
 }
