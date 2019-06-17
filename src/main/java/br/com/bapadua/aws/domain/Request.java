@@ -24,7 +24,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "TB_REQUEST")
@@ -34,25 +35,25 @@ public class Request implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(length = 75, nullable = false)
 	private String subject;
-	
+
 	@Column(columnDefinition = "text")
 	private String description;
-	
+
 	@Column(name = "createdAt", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
-	
+
 	@Column(length = 15, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private RequestState state;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "owner_id", nullable = false)
 	private User owner;
-	
+
 	@OneToMany(mappedBy = "request")
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
 }

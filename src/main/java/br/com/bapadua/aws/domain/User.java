@@ -25,28 +25,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "TB_USER")
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(length = 60, nullable = false)
 	private String name;
 	@Column(length = 60, nullable = false, unique = true)
 	private String email;
 	@Column(length = 60, nullable = false)
 	private String password;
-	
+
 	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	
+
 	@OneToMany(mappedBy = "owner")
 	private List<Request> requests = new ArrayList<Request>();
-	
+
 	@OneToMany(mappedBy = "owner")
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
-	
+
 }

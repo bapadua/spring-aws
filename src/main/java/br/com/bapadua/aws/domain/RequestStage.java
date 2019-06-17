@@ -21,7 +21,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "TB_RQ_STAGE")
@@ -31,22 +32,22 @@ public class RequestStage implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(columnDefinition = "text")
 	private String description;
-	
+
 	@Column(nullable = false, length = 15, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date  requestDate;
-	
+	private Date requestDate;
+
 	@Column(nullable = false, length = 15)
 	@Enumerated(EnumType.STRING)
 	private RequestState state;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "request_id", nullable = false)
 	private Request request;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "owner_id", nullable = false)
 	private User owner;
