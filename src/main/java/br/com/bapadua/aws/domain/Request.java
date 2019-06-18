@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.bapadua.aws.domain.enums.RequestState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,5 +57,6 @@ public class Request implements Serializable {
 	private User owner;
 
 	@OneToMany(mappedBy = "request")
+	@Getter(onMethod = @__(@JsonIgnore))
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
 }

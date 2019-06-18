@@ -36,17 +36,12 @@ public class RequestResource {
 	
 	@PutMapping
 	public ResponseEntity<Request> update(@RequestBody Request request) {
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.save(request));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.update(request));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Request> getById(@PathVariable(name = "id") Long id) {
-		try {
-			Request result = requestService.getById(id);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
-		} catch (ObjectNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-		}
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.getById(id));
 	}
 
 	@GetMapping

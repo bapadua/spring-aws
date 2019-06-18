@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.bapadua.aws.domain.Request;
 import br.com.bapadua.aws.domain.RequestStage;
 import br.com.bapadua.aws.domain.enums.RequestState;
+import br.com.bapadua.aws.exception.NotFoundException;
 import br.com.bapadua.aws.repository.RequestRepository;
 import br.com.bapadua.aws.repository.RequestStageRepository;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -37,12 +38,9 @@ public class RequestStageService {
 		return stageRepository.save(stage);
 	}
 	
-	public RequestStage getById(Long id) throws ObjectNotFoundException {
+	public RequestStage getById(Long id) {
 		Optional<RequestStage> result = stageRepository.findById(id);
-		if(result.isPresent()) {
-			return result.get();			
-		}
-		throw new ObjectNotFoundException("Não foi possível realizar a consulta");
+		return result.orElseThrow(() -> new NotFoundException("Estado da requisição não encontrado" + id));
 	}
 	
 	public List<RequestStage> listAllByRequest(Request request) {

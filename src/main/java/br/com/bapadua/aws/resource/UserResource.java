@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.bapadua.aws.domain.Request;
 import br.com.bapadua.aws.domain.User;
 import br.com.bapadua.aws.domain.dto.UserLoginDTO;
+import br.com.bapadua.aws.exception.NotFoundException;
 import br.com.bapadua.aws.service.RequestService;
 import br.com.bapadua.aws.service.UserService;
-import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value = "users")
@@ -44,11 +44,7 @@ public class UserResource {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getById(@PathVariable(name = "id") Long id) {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));
-		} catch (ObjectNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));
 	}
 
 	@GetMapping("/{id}/requests")
