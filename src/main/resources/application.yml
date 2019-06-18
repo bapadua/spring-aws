@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: test
+    active: dev
 
 ---
 
@@ -19,7 +19,6 @@ spring:
    database-platform: org.hibernate.dialect.MySQL57Dialect
    hibernate.ddl-auto: create
    show-sql: true
-
 ---
 
 spring:

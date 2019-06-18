@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.bapadua.aws.domain.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +39,10 @@ public class User implements Serializable {
 	private String name;
 	@Column(length = 60, nullable = false, unique = true)
 	private String email;
+	
 	@Column(length = 100, nullable = false)
+	@Getter(onMethod = @__({@JsonIgnore}))
+	@Setter(onMethod = @__({@JsonProperty}))
 	private String password;
 
 	@Column(length = 20, nullable = false)
@@ -44,9 +50,11 @@ public class User implements Serializable {
 	private Role role;
 
 	@OneToMany(mappedBy = "owner")
+	@Getter(onMethod = @__({@JsonIgnore}))
 	private List<Request> requests = new ArrayList<Request>();
 
 	@OneToMany(mappedBy = "owner")
+	@Getter(onMethod = @__({@JsonIgnore}))
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
 
 }
