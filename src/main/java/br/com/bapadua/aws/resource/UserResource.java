@@ -1,7 +1,5 @@
 package br.com.bapadua.aws.resource;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bapadua.aws.domain.Request;
 import br.com.bapadua.aws.domain.User;
 import br.com.bapadua.aws.domain.dto.UserLoginDTO;
-import br.com.bapadua.aws.exception.NotFoundException;
+import br.com.bapadua.aws.pagemodel.PageModel;
+import br.com.bapadua.aws.pagemodel.PageRequestModel;
 import br.com.bapadua.aws.service.RequestService;
 import br.com.bapadua.aws.service.UserService;
 
@@ -41,15 +41,31 @@ public class UserResource {
 		user.setId(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.save(user));
 	}
+	
+	@GetMapping
+	public ResponseEntity<PageModel<User>> getAll(
+			@RequestParam(value = "page") int page,
+			@RequestParam(value = "size") int size) {
+		
+		PageRequestModel pr = new PageRequestModel(page, size);
+		PageModel<User> list = userService.lazyList(pr);
+		return ResponseEntity.ok(list);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getById(@PathVariable(name = "id") Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));
 	}
-
+	
 	@GetMapping("/{id}/requests")
-	public ResponseEntity<List<Request>> getByOwner(@PathVariable(name = "id") Long ownerId) {
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.findByOwner(ownerId));
+	public ResponseEntity<PageModel<Request>> getAllRequestsByUser(
+			@PathVariable(name = "id") Long id,
+			@RequestParam(value = "page") int page, 
+			@RequestParam(value = "size") int size) {
+		PageRequestModel pr = new PageRequestModel(page, size);
+		PageModel<Request> list = requestService.lazyList(id, pr);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 	@PostMapping("/login")

@@ -1,7 +1,5 @@
 package br.com.bapadua.aws.resource;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bapadua.aws.domain.Request;
 import br.com.bapadua.aws.domain.RequestStage;
-import br.com.bapadua.aws.repository.RequestStageRepository;
+import br.com.bapadua.aws.pagemodel.PageModel;
+import br.com.bapadua.aws.pagemodel.PageRequestModel;
 import br.com.bapadua.aws.service.RequestService;
-import javassist.tools.rmi.ObjectNotFoundException;
+import br.com.bapadua.aws.service.RequestStageService;
 
 @RestController
 @RequestMapping(value = "requests")
@@ -27,7 +27,7 @@ public class RequestResource {
 	private RequestService requestService;
 	
 	@Autowired
-	private RequestStageRepository stageRepository;
+	private RequestStageService requestStageService;
 
 	@PostMapping
 	public ResponseEntity<Request> save(@RequestBody Request request) {
@@ -43,15 +43,26 @@ public class RequestResource {
 	public ResponseEntity<Request> getById(@PathVariable(name = "id") Long id) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.getById(id));
 	}
-
+	
 	@GetMapping
-	public ResponseEntity<List<Request>> getAll() {
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.findAll());
+	public ResponseEntity<PageModel<Request>> getAll(
+			@RequestParam(value = "page") int page,
+			@RequestParam(value = "size") int size) {
+		
+		PageRequestModel pr = new PageRequestModel(page, size);
+		PageModel<Request> list = requestService.findAll(pr);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 	@GetMapping("/{id}/stages")
-	public ResponseEntity<List<RequestStage>> listByRequestId(@PathVariable(name = "id") Long id) {
-		return ResponseEntity.accepted().body(stageRepository.findByRequestStagesId(id));
+	public ResponseEntity<PageModel<RequestStage>> listByRequestId(
+			@PathVariable(name = "id") Long id,
+			@RequestParam(value = "page") int page,
+			@RequestParam(value = "size") int size) {
+		
+		PageRequestModel pr = new PageRequestModel(page, size);
+		PageModel<RequestStage> list = requestStageService.byRequestList(id, pr);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 }
