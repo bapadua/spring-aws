@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.bapadua.aws.domain.User;
 import br.com.bapadua.aws.domain.dto.UserLoginDTO;
+import br.com.bapadua.aws.domain.enums.Role;
 import br.com.bapadua.aws.exception.NotAllowedException;
 import br.com.bapadua.aws.exception.NotFoundException;
 import br.com.bapadua.aws.pagemodel.PageModel;
@@ -50,6 +51,10 @@ public class UserService {
 				result.getContent());
 		
 		return pm;
+	}
+	
+	public int updateRole(User user, Role role) {
+		return userRepository.updateRole(user.getId(), role);
 	}
 
 	public User login(UserLoginDTO login) {

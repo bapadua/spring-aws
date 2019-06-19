@@ -79,4 +79,10 @@ public class UserRepositoryTests {
 			assertTrue(user.getId().longValue() == 1L);
 		}
 	}
+	
+	@Test
+	public void fUpdateRole() {
+		int updateRole = repository.updateRole(defaultUser.getId(), Role.SIMPLE);
+		assertTrue(updateRole == 1);
+	}
 }
