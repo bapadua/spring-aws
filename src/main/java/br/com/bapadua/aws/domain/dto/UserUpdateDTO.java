@@ -1,5 +1,6 @@
 package br.com.bapadua.aws.domain.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.Email;
@@ -15,7 +16,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserUpdateDTO {
+public class UserUpdateDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@NotBlank(message = "Informe um nome")
 	@Length(max = 50, message = "O nome pode conter no máximo 50 caracteres")

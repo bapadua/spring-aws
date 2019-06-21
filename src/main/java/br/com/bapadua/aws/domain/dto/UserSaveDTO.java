@@ -1,5 +1,6 @@
 package br.com.bapadua.aws.domain.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.Email;
@@ -17,7 +18,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserSaveDTO {
+public class UserSaveDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@NotBlank
 	@Length(max = 50)

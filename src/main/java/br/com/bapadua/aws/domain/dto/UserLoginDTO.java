@@ -1,5 +1,7 @@
 package br.com.bapadua.aws.domain.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -13,7 +15,8 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginDTO {
+public class UserLoginDTO  implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Email(message = "Informe um e-mail válido")
 	private String email;

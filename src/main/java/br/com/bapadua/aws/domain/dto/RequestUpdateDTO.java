@@ -1,5 +1,6 @@
 package br.com.bapadua.aws.domain.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -18,8 +19,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestUpdateDTO {
-
+public class RequestUpdateDTO  implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@NotBlank(message = "Informe o subject")
 	private String subject;
 	private String description;
