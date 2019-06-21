@@ -25,7 +25,7 @@ public class UserSaveDTO implements Serializable {
 	@Length(max = 50)
 	private String name;
 	
-	@Email
+	@Email(message = "Informe um e-mail valido")
 	private String email;
 	
 	@NotBlank(message = "Informe uma senha")

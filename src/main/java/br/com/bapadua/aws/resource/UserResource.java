@@ -37,7 +37,7 @@ public class UserResource {
 	private RequestService requestService;
 
 	@PostMapping
-	public ResponseEntity<User> save(@RequestBody UserSaveDTO user) {
+	public ResponseEntity<User> save(@RequestBody @Valid UserSaveDTO user) {
 		User save = userService.save(user.toUser());
 		return ResponseEntity.status(HttpStatus.CREATED).body(save);
 	}
