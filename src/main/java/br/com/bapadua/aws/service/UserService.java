@@ -24,6 +24,12 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	public User update(User user) {
+		String secureHash = HashUtil.getSecureHash(user.getPassword());
+		user.setPassword(secureHash);
+		return userRepository.save(user);
+	}
 
 	public User save(User user) {
 		String secureHash = HashUtil.getSecureHash(user.getPassword());

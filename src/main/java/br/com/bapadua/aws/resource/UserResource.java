@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.bapadua.aws.domain.Request;
 import br.com.bapadua.aws.domain.User;
 import br.com.bapadua.aws.domain.dto.UserLoginDTO;
+import br.com.bapadua.aws.domain.dto.UserSaveDTO;
 import br.com.bapadua.aws.domain.dto.UserUpdateDTO;
+import br.com.bapadua.aws.domain.dto.UserRoleUpdateDTO;
 import br.com.bapadua.aws.pagemodel.PageModel;
 import br.com.bapadua.aws.pagemodel.PageRequestModel;
 import br.com.bapadua.aws.service.RequestService;
@@ -35,15 +37,16 @@ public class UserResource {
 	private RequestService requestService;
 
 	@PostMapping
-	public ResponseEntity<User> save(@RequestBody User user) {
-		User save = userService.save(user);
+	public ResponseEntity<User> save(@RequestBody UserSaveDTO user) {
+		User save = userService.save(user.toUser());
 		return ResponseEntity.status(HttpStatus.CREATED).body(save);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update(@PathVariable(name = "id") Long id, @RequestBody User user) {
+	public ResponseEntity<User> update(@PathVariable(name = "id") Long id, @RequestBody @Valid UserUpdateDTO userDTO) {
+		User user = userDTO.toUser();
 		user.setId(id);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.save(user));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.update(user));
 	}
 
 	@GetMapping
@@ -71,7 +74,7 @@ public class UserResource {
 	}
 
 	@PatchMapping("/role/{id}")
-	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody UserUpdateDTO role) {
+	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody @Valid UserRoleUpdateDTO role) {
 		User user = new User();
 		user.setId(id);
 		user.setRole(role.getRole());

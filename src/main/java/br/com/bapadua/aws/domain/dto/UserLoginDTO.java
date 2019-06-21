@@ -3,6 +3,8 @@ package br.com.bapadua.aws.domain.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserLoginDTO {
 	
-	@Email
+	@Email(message = "Informe um e-mail válido")
 	private String email;
 	
-	@NotBlank
+	@NotBlank(message = "Informe uma senha")
+	@Length(min = 4, max = 8, message = "Deve conter entre 6 e 8 caracteres")
 	private String password;
 }

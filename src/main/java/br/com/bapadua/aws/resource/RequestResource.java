@@ -1,5 +1,7 @@
 package br.com.bapadua.aws.resource;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bapadua.aws.domain.Request;
 import br.com.bapadua.aws.domain.RequestStage;
+import br.com.bapadua.aws.domain.dto.RequestSaveDTO;
+import br.com.bapadua.aws.domain.dto.RequestUpdateDTO;
 import br.com.bapadua.aws.pagemodel.PageModel;
 import br.com.bapadua.aws.pagemodel.PageRequestModel;
 import br.com.bapadua.aws.service.RequestService;
@@ -30,13 +34,13 @@ public class RequestResource {
 	private RequestStageService requestStageService;
 
 	@PostMapping
-	public ResponseEntity<Request> save(@RequestBody Request request) {
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.save(request));
+	public ResponseEntity<Request> save(@RequestBody @Valid RequestSaveDTO request) {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.save(request.toRequest()));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Request> update(@RequestBody Request request) {
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.update(request));
+	public ResponseEntity<?> update(@RequestBody @Valid RequestUpdateDTO request) {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(requestService.update(request.toRequest()));
 	}
 
 	@GetMapping("/{id}")

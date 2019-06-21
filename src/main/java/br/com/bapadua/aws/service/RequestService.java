@@ -29,9 +29,8 @@ public class RequestService {
 		return requestRepository.save(request);
 	}
 
-	public Request update(Request request) {
-		//return requestRepository.updateStatus(request.getOwner().getId(), request.getState().ordinal());
-		return null;
+	public int update(Request request) {
+		return requestRepository.updateStatus(request.getOwner().getId(), request.getState());
 	}
 
 	public Request getById(Long id) {

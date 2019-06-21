@@ -2,6 +2,8 @@ package br.com.bapadua.aws.resource;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bapadua.aws.domain.RequestStage;
+import br.com.bapadua.aws.domain.dto.RequestStageSaveDTO;
 import br.com.bapadua.aws.repository.RequestStageRepository;
 
 @RestController
@@ -23,8 +26,8 @@ public class RequestStageResource {
 	private RequestStageRepository stageRepository;
 
 	@PostMapping
-	public ResponseEntity<RequestStage> save(@RequestBody RequestStage stage) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(stageRepository.save(stage));
+	public ResponseEntity<RequestStage> save(@RequestBody @Valid RequestStageSaveDTO stage) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(stageRepository.save(stage.toStage()));
 	}
 
 	@GetMapping("/{id}")
