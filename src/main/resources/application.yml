@@ -2,8 +2,11 @@ server:
  port: 8081
 
 spring:
-  profiles:
-    active: test
+ profiles:
+  active: prod
+ datasource:
+  jpa:
+   database-platform: org.hibernate.dialect.MySQL57Dialect
 
 ---
 
@@ -16,9 +19,9 @@ spring:
   driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-   database-platform: org.hibernate.dialect.MySQL57Dialect
    hibernate.ddl-auto: create
    show-sql: true
+   
 ---
 
 spring:
@@ -40,3 +43,23 @@ spring:
    database-platform: org.hibernate.dialect.H2Dialect
    hibernate.ddl-auto: create
    show-sql: true
+   
+---
+
+spring:
+ profiles: prod
+ datasource:
+  url: ${aws_db_url}
+  username: ${aws_usr}
+  password: ${aws_pwd}
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+   database-platform: org.hibernate.dialect.MySQL57Dialect
+   hibernate.ddl-auto: create
+   show-sql: false
+   
+ jackson:
+  default:
+   property-inclusion: non-null
+   
+---
