@@ -6,9 +6,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.5.RELEASE</version>
+		<version>2.1.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>br.com.bapadua</groupId>
 	<artifactId>bapadua-aws</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -40,7 +41,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.15</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

@@ -1,13 +1,10 @@
 server:
  port: 8081
+ connection-timeout: 30000
 
 spring:
  profiles:
   active: prod
- datasource:
-  jpa:
-   database-platform: org.hibernate.dialect.MySQL57Dialect
-
 ---
 
 spring:
